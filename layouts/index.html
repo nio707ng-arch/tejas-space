@@ -1,5 +1,6 @@
 {{ define "main" }}
 <section class="hero-grid">
+  <div class="particle-field" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
   <div class="hero-copy">
     <div class="eyebrow"><i></i> SYSTEM.STATUS: ONLINE <span>· INDIA</span></div>
     <h1>Engineering<br><em>systems that last.</em></h1>
@@ -9,7 +10,12 @@
     <blockquote>Building practical systems, testing their boundaries, and documenting what survives contact with reality.</blockquote>
     <div class="actions"><a class="primary" href="{{ "about/" | relURL }}">init_profile()</a><a class="secondary" href="{{ "projects/" | relURL }}">explore_ecosystem()</a></div>
   </div>
-  <div class="terminal" aria-label="Engineering terminal illustration">
+  <div class="hero-visual">
+    <div class="axiom-signature">
+      <img src="{{ "img/axiom-symbol-white.svg" | relURL }}" alt="AXIOM symbol">
+      <div><strong>AXIOM</strong><span>INTENT. ACTION. REALITY.</span></div>
+    </div>
+    <div class="terminal" aria-label="Engineering terminal illustration">
     <div class="terminal-bar"><div class="lights"><i></i><i></i><i></i></div><span>tejas@engineering-lab: ~</span><b>▮▮▮</b></div>
     <div class="terminal-body">
       <p><i>›</i> system.boot()</p>
@@ -20,6 +26,7 @@
       <p><i>›</i> resilience.mode = "always_on"</p>
       <p><i>›</i> learning.publicly = true</p>
       <p class="prompt"><i>›</i> ready<span class="cursor">_</span></p>
+    </div>
     </div>
   </div>
 </section>
