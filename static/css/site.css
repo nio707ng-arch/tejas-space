@@ -24,3 +24,33 @@ blockquote{margin:24px 0;color:#87958d;border-left:1px solid var(--green);paddin
 footer{border-top:1px solid var(--line);padding:22px 0 30px;display:flex;justify-content:space-between;color:#718078;font:9px var(--mono);letter-spacing:.04em}
 @media(max-width:800px){.hero-grid{grid-template-columns:1fr;gap:35px;padding:75px 0}.terminal{max-width:650px}.cards{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.site-header,main,footer{width:calc(100% - 32px)}.site-header{height:auto;min-height:66px;align-items:flex-start;padding:18px 0;gap:16px;flex-direction:column}nav{gap:14px;flex-wrap:wrap}nav a{font-size:9px}.hero-grid{padding:62px 0}.hero-grid h1{font-size:49px}.role{font-size:16px}.terminal-body{padding:20px 14px;font-size:10px}.intro,.latest{grid-template-columns:1fr;gap:12px;padding:42px 0}.cards{grid-template-columns:1fr}.cards article{min-height:180px}.section-head{align-items:flex-start;flex-direction:column}footer{flex-direction:column;gap:8px}}
+
+
+/* Hero visual, official AXIOM mark and restrained particle motion */
+.hero-grid{position:relative;isolation:isolate;grid-template-columns:minmax(0,1fr) minmax(390px,.92fr);gap:clamp(34px,5vw,76px);overflow:hidden}
+.hero-copy,.hero-visual{position:relative;z-index:2;min-width:0}
+.hero-visual{display:flex;flex-direction:column;gap:20px;align-items:stretch}
+.axiom-signature{display:flex;align-items:center;justify-content:center;gap:16px;padding:12px 0 2px}
+.axiom-signature img{width:66px;height:66px;object-fit:contain;filter:drop-shadow(0 0 15px rgba(42,139,255,.38))}
+.axiom-signature div{display:flex;flex-direction:column;gap:2px}
+.axiom-signature strong{font:700 29px/1 var(--sans);letter-spacing:.28em;color:#eaf3ff}
+.axiom-signature span{font:9px var(--mono);letter-spacing:.25em;color:#81a9d6}
+.terminal{width:100%;min-height:310px;position:relative;z-index:2}
+.particle-field{position:absolute;z-index:1;inset:0;pointer-events:none;overflow:hidden;opacity:.85}
+.particle-field span{position:absolute;left:var(--x);bottom:-12px;width:var(--size);height:var(--size);border-radius:50%;background:var(--particle,#24dca0);box-shadow:0 0 8px 2px currentColor;opacity:0;animation:particle-rise var(--duration) linear var(--delay) infinite}
+.particle-field span:nth-child(1){--x:8%;--size:2px;--duration:9s;--delay:-2s;--particle:#00d68b}
+.particle-field span:nth-child(2){--x:18%;--size:3px;--duration:12s;--delay:-7s;--particle:#6da9ff}
+.particle-field span:nth-child(3){--x:29%;--size:2px;--duration:10s;--delay:-4s;--particle:#00d68b}
+.particle-field span:nth-child(4){--x:39%;--size:3px;--duration:14s;--delay:-10s;--particle:#6da9ff}
+.particle-field span:nth-child(5){--x:49%;--size:2px;--duration:11s;--delay:-5s;--particle:#00d68b}
+.particle-field span:nth-child(6){--x:58%;--size:3px;--duration:13s;--delay:-8s;--particle:#6da9ff}
+.particle-field span:nth-child(7){--x:68%;--size:2px;--duration:9s;--delay:-3s;--particle:#00d68b}
+.particle-field span:nth-child(8){--x:77%;--size:3px;--duration:15s;--delay:-11s;--particle:#6da9ff}
+.particle-field span:nth-child(9){--x:87%;--size:2px;--duration:12s;--delay:-6s;--particle:#00d68b}
+.particle-field span:nth-child(10){--x:95%;--size:2px;--duration:10s;--delay:-1s;--particle:#6da9ff}
+.particle-field span:nth-child(11){--x:73%;--size:2px;--duration:16s;--delay:-13s;--particle:#00d68b}
+.particle-field span:nth-child(12){--x:33%;--size:2px;--duration:14s;--delay:-9s;--particle:#6da9ff}
+@keyframes particle-rise{0%{transform:translate3d(0,0,0);opacity:0}12%{opacity:.8}80%{opacity:.45}100%{transform:translate3d(28px,-620px,0);opacity:0}}
+@media(max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr) minmax(320px,.9fr);gap:28px}.hero-grid h1{font-size:clamp(43px,6vw,64px)}}
+@media(max-width:760px){.hero-grid{grid-template-columns:1fr;gap:32px;padding:65px 0}.hero-visual{max-width:620px;width:100%;margin:auto}.terminal{min-height:280px}}
+@media(prefers-reduced-motion:reduce){.particle-field span,.cursor{animation:none!important;opacity:.35}.cards article{transition:none}}
