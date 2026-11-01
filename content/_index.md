@@ -2,8 +2,4 @@
 title: "Home"
 ---
 
-## Engineering, infrastructure and the craft of building
-
-I work across systems administration, infrastructure, networking, automation and emerging AI engineering. This site is a living record of practical experiments, lessons learned and projects under development.
-
-*This is demonstration copy. Replace it with accurate public-facing information before publishing.*
+A practical engineering portfolio covering infrastructure, cloud architecture, automation and the design of dependable AI systems. This is where I document real projects, technical decisions, experiments and lessons learned.
