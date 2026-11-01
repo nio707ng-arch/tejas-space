@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" fill="none">
+  <g fill="#FFFFFF">
+    <path d="M500 80 L105 760 L235 760 L500 302 Z"/>
+    <path d="M500 80 L895 760 L765 760 L500 302 Z"/>
+    <path d="M500 500 L365 600 L365 735 L500 835 Z"/>
+    <path d="M500 500 L635 600 L635 735 L500 835 Z"/>
+  </g>
+</svg>
