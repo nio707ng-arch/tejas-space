@@ -4,13 +4,14 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
 <meta name="description" content="{{ .Description | default .Site.Params.description }}">
+<meta name="theme-color" content="#070a09">
 <link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
 </head>
 <body>
 <header class="site-header">
-<a class="brand" href="{{ .Site.Home.RelPermalink }}"><span class="brand-mark">T</span><span>{{ .Site.Title }}</span></a>
-<nav><a href="{{ "about/" | relURL }}">About</a><a href="{{ "projects/" | relURL }}">Projects</a><a href="{{ "posts/" | relURL }}">Writing</a></nav>
+<a class="brand" href="{{ .Site.Home.RelPermalink }}"><span class="brand-mark">root@</span><span>{{ .Site.Title }}</span><b>.</b></a>
+<nav><a href="{{ "about/" | relURL }}">01 ABOUT</a><a href="{{ "projects/" | relURL }}">02 STACK</a><a href="{{ "posts/" | relURL }}">03 NOTES</a><a class="contact-link" href="mailto:{{ .Site.Params.email }}">Execute_Contact()</a></nav>
 </header>
 <main>{{ block "main" . }}{{ end }}</main>
-<footer><span>© {{ now.Year }} {{ .Site.Params.author }} · {{ .Site.Params.location }}</span><span>Built with Hugo · Hosted on GitHub Pages</span></footer>
+<footer><span>© {{ now.Year }} {{ .Site.Params.author }} · {{ .Site.Params.location }}</span><span>Built with Hugo · Deployed by GitHub Actions</span></footer>
 </body></html>
