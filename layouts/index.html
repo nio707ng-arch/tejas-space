@@ -1,16 +1,36 @@
 {{ define "main" }}
-<section class="hero">
-<div class="eyebrow"><i></i> PERSONAL ENGINEERING PORTFOLIO <span>INDIA</span></div>
-<h1>Building reliable systems.<br><em>Learning in public.</em></h1>
-<p class="lead">{{ .Site.Params.description }}</p>
-<div class="actions"><a class="primary" href="{{ "projects/" | relURL }}">Explore projects ↗</a><a class="secondary" href="{{ "posts/" | relURL }}">Read engineering notes</a></div>
-<div class="note">SYSTEMS THINKING · PRACTICAL ENGINEERING · CONTINUOUS LEARNING</div>
+<section class="hero-grid">
+  <div class="hero-copy">
+    <div class="eyebrow"><i></i> SYSTEM.STATUS: ONLINE <span>· INDIA</span></div>
+    <h1>Engineering<br><em>systems that last.</em></h1>
+    <p class="role">Infrastructure · Cloud · AI Systems</p>
+    <p class="lead">{{ .Site.Params.description }}</p>
+    <div class="skill-tags"><span>[ LINUX & INFRASTRUCTURE ]</span><span>[ CLOUD & AUTOMATION ]</span><span>[ AI ENGINEERING ]</span></div>
+    <blockquote>Building practical systems, testing their boundaries, and documenting what survives contact with reality.</blockquote>
+    <div class="actions"><a class="primary" href="{{ "about/" | relURL }}">init_profile()</a><a class="secondary" href="{{ "projects/" | relURL }}">explore_ecosystem()</a></div>
+  </div>
+  <div class="terminal" aria-label="Engineering terminal illustration">
+    <div class="terminal-bar"><div class="lights"><i></i><i></i><i></i></div><span>tejas@engineering-lab: ~</span><b>▮▮▮</b></div>
+    <div class="terminal-body">
+      <p><i>›</i> system.boot()</p>
+      <p><i>›</i> loading engineering_domains...</p>
+      <p class="dim">[ infrastructure · cloud · automation · AI ]</p>
+      <p><i>›</i> axiom.exosystem.status()</p>
+      <p class="success">[ core | forge | wild | big-planner ]</p>
+      <p><i>›</i> resilience.mode = "always_on"</p>
+      <p><i>›</i> learning.publicly = true</p>
+      <p class="prompt"><i>›</i> ready<span class="cursor">_</span></p>
+    </div>
+  </div>
 </section>
-<section class="intro" id="about"><div><small>01 / PROFILE</small><h2>Practical engineering, from infrastructure to AI.</h2></div><p>I enjoy understanding how systems behave in the real world: where they fail, how they recover and how to make them easier to operate.<br><a href="{{ "about/" | relURL }}">More about me →</a></p></section>
-<section class="work" id="projects"><small>02 / SELECTED WORK</small><h2>Things I’m exploring</h2><div class="cards">
-<article><small>01 · AI ENGINEERING</small><h3>AXIOM</h3><p>Capability-oriented architecture, deterministic planning and modular intelligence.</p><label>Research & development ↗</label></article>
-<article><small>02 · INFRASTRUCTURE</small><h3>Resilience Lab</h3><p>Virtualization, backup verification, network design and disaster recovery.</p><label>Practical experiments ↗</label></article>
-<article><small>03 · CLOUD</small><h3>Cloud Architecture</h3><p>AWS and Terraform labs focused on repeatable, observable infrastructure.</p><label>Learning portfolio ↗</label></article>
+<section class="intro" id="about"><div><small>01 / PROFILE</small><h2>From infrastructure operations to systems architecture.</h2></div><p>I work across infrastructure, networks, virtualization, backup and cloud technologies, with a growing focus on dependable AI systems. My approach is practical: understand the constraints, define clear boundaries, test failure modes and improve the design.<br><a href="{{ "about/" | relURL }}">Read the profile →</a></p></section>
+<section class="work" id="projects"><div class="section-head"><div><small>02 / SELECTED WORK</small><h2>The AXIOM exosystem & beyond</h2></div><a href="{{ "projects/" | relURL }}">VIEW ALL WORK ↗</a></div><p class="section-lead">AXIOM is not a single application. It is an ecosystem of cooperating projects, each with a distinct responsibility.</p><div class="cards">
+<article class="featured"><small>01 · ECOSYSTEM</small><h3>AXIOM</h3><p>The broader capability-oriented AI engineering ecosystem: architecture, execution, governance, knowledge and extensible capabilities.</p><label>FOUNDATION / ECOSYSTEM</label></article>
+<article><small>02 · ENGINEERING</small><h3>AXIOM Forge</h3><p>Validation and controlled evolution: verify changes, enforce contracts and make unsafe upgrades harder to ship.</p><label>VALIDATION / EVOLUTION</label></article>
+<article><small>03 · EXECUTION</small><h3>AXIOM Wild</h3><p>An adapter and execution integration track for bringing external tools and capabilities into the AXIOM environment.</p><label>ADAPTERS / INTEGRATION</label></article>
+<article><small>04 · PLANNING</small><h3>AXIOM Big Planner</h3><p>Mission planning and deterministic workflow construction, with explicit boundaries between planning and execution.</p><label>PLANNING / ORCHESTRATION</label></article>
+<article><small>05 · KNOWLEDGE</small><h3>AXIOM Knowledge</h3><p>A persistent knowledge space designed to capture, index and maintain useful context over time.</p><label>KNOWLEDGE / CONTINUITY</label></article>
+<article><small>06 · APPLIED SYSTEMS</small><h3>AXIOM Lab & CRE</h3><p>Experimentation and opportunity research: test models and workflows, then turn evidence into actionable signals.</p><label>EXPERIMENTS / RESEARCH</label></article>
 </div></section>
-<section class="latest" id="writing"><div><small>03 / FIELD NOTES</small><h2>Thinking through the work.</h2><p>Short, useful notes from real experiments and decisions.</p></div><div>{{ range first 3 (where .Site.RegularPages "Section" "posts") }}<a class="post" href="{{ .RelPermalink }}"><time>{{ .Date.Format "02 Jan 2006" }}</time>{{ .Title }} <b>↗</b></a>{{ end }}</div></section>
+<section class="latest" id="writing"><div><small>03 / FIELD NOTES</small><h2>Engineering in the open.</h2><p>Practical notes from infrastructure work, architecture decisions, experiments and lessons learned.</p></div><div>{{ range first 3 (where .Site.RegularPages "Section" "posts") }}<a class="post" href="{{ .RelPermalink }}"><time>{{ .Date.Format "02 Jan 2006" }}</time>{{ .Title }} <b>↗</b></a>{{ end }}</div></section>
 {{ end }}
