@@ -5,7 +5,7 @@ categories:
 description: An AXIOM engineering incident report on architectural
   drift, AI coding-agent authority, and why passing tests are not
   enough.
-draft: true
+draft: false
 slug: when-tests-pass-architecture-drifts
 subtitle: What happened when an AI coding agent restored an API---and
   quietly started redesigning the system
