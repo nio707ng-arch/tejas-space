@@ -1,0 +1,9 @@
+baseURL = "https://example.github.io/tejas-demo/"
+languageCode = "en-us"
+title = "Tejas — Engineering Notes"
+enableRobotsTXT = true
+
+[params]
+description = "A personal space for infrastructure, cloud engineering and applied AI."
+author = "Tejas"
+location = "India"

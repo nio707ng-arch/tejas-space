@@ -1,0 +1,1 @@
+{{ define "main" }}<article class="article"><small>EXPLORE</small><h1>{{ .Title }}</h1>{{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}{{ range .Pages.ByDate.Reverse }}<a class="post" href="{{ .RelPermalink }}"><time>{{ .Date.Format "02 Jan 2006" }}</time>{{ .Title }} <b>↗</b></a>{{ end }}</article>{{ end }}

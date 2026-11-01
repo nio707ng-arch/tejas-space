@@ -1,0 +1,16 @@
+{{ define "main" }}
+<section class="hero">
+<div class="eyebrow"><i></i> PERSONAL ENGINEERING PORTFOLIO <span>INDIA</span></div>
+<h1>Building reliable systems.<br><em>Learning in public.</em></h1>
+<p class="lead">{{ .Site.Params.description }}</p>
+<div class="actions"><a class="primary" href="{{ "projects/" | relURL }}">Explore projects ↗</a><a class="secondary" href="{{ "posts/" | relURL }}">Read engineering notes</a></div>
+<div class="note">SYSTEMS THINKING · PRACTICAL ENGINEERING · CONTINUOUS LEARNING</div>
+</section>
+<section class="intro" id="about"><div><small>01 / PROFILE</small><h2>Practical engineering, from infrastructure to AI.</h2></div><p>I enjoy understanding how systems behave in the real world: where they fail, how they recover and how to make them easier to operate.<br><a href="{{ "about/" | relURL }}">More about me →</a></p></section>
+<section class="work" id="projects"><small>02 / SELECTED WORK</small><h2>Things I’m exploring</h2><div class="cards">
+<article><small>01 · AI ENGINEERING</small><h3>AXIOM</h3><p>Capability-oriented architecture, deterministic planning and modular intelligence.</p><label>Research & development ↗</label></article>
+<article><small>02 · INFRASTRUCTURE</small><h3>Resilience Lab</h3><p>Virtualization, backup verification, network design and disaster recovery.</p><label>Practical experiments ↗</label></article>
+<article><small>03 · CLOUD</small><h3>Cloud Architecture</h3><p>AWS and Terraform labs focused on repeatable, observable infrastructure.</p><label>Learning portfolio ↗</label></article>
+</div></section>
+<section class="latest" id="writing"><div><small>03 / FIELD NOTES</small><h2>Thinking through the work.</h2><p>Short, useful notes from real experiments and decisions.</p></div><div>{{ range first 3 (where .Site.RegularPages "Section" "posts") }}<a class="post" href="{{ .RelPermalink }}"><time>{{ .Date.Format "02 Jan 2006" }}</time>{{ .Title }} <b>↗</b></a>{{ end }}</div></section>
+{{ end }}

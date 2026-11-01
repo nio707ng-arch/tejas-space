@@ -1,0 +1,1 @@
+{{ define "main" }}<article class="article"><small>ENGINEERING JOURNAL</small><h1>{{ .Title }}</h1>{{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}{{ if eq .Section "posts" }}<time>{{ .Date.Format "02 January 2006" }}</time>{{ end }}<div class="body">{{ .Content }}</div><a href="{{ .Site.Home.RelPermalink }}">← Back to home</a></article>{{ end }}

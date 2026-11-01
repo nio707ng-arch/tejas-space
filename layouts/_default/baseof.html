@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="{{ .Site.Language.Lang }}">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
+<meta name="description" content="{{ .Description | default .Site.Params.description }}">
+<link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
+</head>
+<body>
+<header class="site-header">
+<a class="brand" href="{{ .Site.Home.RelPermalink }}"><span class="brand-mark">T</span><span>{{ .Site.Title }}</span></a>
+<nav><a href="{{ "about/" | relURL }}">About</a><a href="{{ "projects/" | relURL }}">Projects</a><a href="{{ "posts/" | relURL }}">Writing</a></nav>
+</header>
+<main>{{ block "main" . }}{{ end }}</main>
+<footer><span>© {{ now.Year }} {{ .Site.Params.author }} · {{ .Site.Params.location }}</span><span>Built with Hugo · Hosted on GitHub Pages</span></footer>
+</body></html>
