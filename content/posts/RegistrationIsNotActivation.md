@@ -1,18 +1,21 @@
 ---
 title: "Registration Is Not Activation"
 date: 2026-11-23
-description: "Why proving that an operation is correct does not mean it should be allowed to execute."
-slug: verification-is-not-authorization
+description: "Why registering a component should not automatically make it operational."
+slug: registration-is-not-activation
 categories:
   - Engineering Notes
   - Software Architecture
 tags:
   - registration
   - activation
+  - authentication
+  - authorization
   - security
   - AI systems
 draft: false
 ---
+
 
 # Registration Is Not Activation
 
