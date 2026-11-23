@@ -1,3 +1,19 @@
+---
+title: "Verification Is Not Authorization"
+date: 2026-11-23
+description: "Why proving that an operation is correct does not mean it should be allowed to execute."
+slug: verification-is-not-authorization
+categories:
+  - Engineering Notes
+  - Software Architecture
+tags:
+  - verification
+  - authorization
+  - security
+  - AI systems
+draft: false
+---
+
 # Verification Is Not Authorization
 
 *Why proving that an operation is correct does not mean it should be allowed to execute.*
@@ -64,33 +80,13 @@ The architecture needs an explicit authority boundary.
 
 ## A separation of responsibilities
 
-In AXIOM, this distinction has influenced how we separate the responsibilities of the major subsystems.
+In autonomous and extensible systems, it is useful to distinguish the responsibilities involved in moving from a proposed operation to an executed one.
 
-The important principle is that no component should acquire authority merely by participating in a successful technical process.
+Verification evaluates whether an operation satisfies its specified conditions. Authorization determines whether the actor and operation are permitted. Execution carries out the operation within those established boundaries.
 
-The responsibilities are deliberately distinct:
+These responsibilities should not be collapsed into one decision.
 
-**Kernel — Admission and authority**
-
-The Kernel is the authoritative admission boundary. It determines whether a request can be admitted under the applicable rules. A capability cannot grant itself admission or establish its own authority.
-
-**Verifier — Verification**
-
-The Verifier evaluates whether an operation satisfies the required conditions. It does not become an authorization authority simply because verification succeeds.
-
-**Registry — Current truth**
-
-The Registry maintains the authoritative current state of admitted capabilities. Registration and allocation do not automatically imply activation or permission to execute.
-
-**Runtime — Execution**
-
-Runtime performs execution within the authority and constraints established by the control plane. It should not independently manufacture permission.
-
-**Journal — Durable evidence**
-
-The Journal provides durable records of relevant decisions and events. Its integrity and signing authority must remain independently controlled.
-
-This separation prevents a successful operation in one subsystem from silently becoming authority in another.
+A successful verification result is evidence about correctness. It is not a permission grant.
 
 ## Registration is not authorization either
 
@@ -100,7 +96,7 @@ Suppose a new capability is successfully registered.
 
 What does that actually mean?
 
-It means the system has admitted the capability into its registration process and established its identity and registry state according to the relevant rules.
+It means the system has recorded the component and its descriptive information through its registration process.
 
 It does not automatically mean:
 
@@ -110,11 +106,11 @@ It does not automatically mean:
 - The capability can communicate directly with other capabilities.
 - The capability can modify system state outside its permitted interface.
 
-In AXIOM, a successful registration yields an allocated capability, not an unrestricted execution privilege.
+Registration establishes recognition. Authorization and activation are separate decisions.
 
-This is an important distinction because a registry is not an authorization engine. It records the system's current truth; it does not independently grant every permission associated with that truth.
+The registry's role is to maintain an accurate record of components known to the system. It should not be treated as an automatic grant of operational permission.
 
-## The Journal exposes another version of the problem
+## The role of cryptographic evidence
 
 The distinction becomes particularly important when dealing with durable records.
 
@@ -124,15 +120,9 @@ But those properties do not necessarily prove that the producer was authorized t
 
 Nor do they prove that the signing key was used under the correct authority.
 
-This is why producer authentication, admission, signing authority, and Journal write permissions must be treated as separate concerns.
+A valid cryptographic signature establishes a relationship between a key and a message. It does not, by itself, establish that the key holder was authorized to perform the action.
 
-A caller should not be able to establish its own trust simply by supplying a producer identity or signing key.
-
-The system must establish who is permitted to submit a record and which authority is permitted to sign it.
-
-A valid cryptographic signature proves something about the relationship between a key and a message. It does not, by itself, establish that the key holder was authorized to perform the action.
-
-That is an architectural responsibility, not a cryptographic shortcut.
+That is an authorization question, not a cryptographic shortcut.
 
 ## The danger of combining these responsibilities
 
@@ -141,16 +131,12 @@ When verification and authorization are combined, several failure patterns becom
 1. **Trust by successful validation:** Any structurally valid request is treated as trustworthy.
 2. **Caller-controlled identity:** A component supplies its own identity and the system accepts it without independently establishing authority.
 3. **Authority through registration:** A registered capability receives more privileges than its admission actually grants.
-4. **Execution bypass:** A component reaches an execution interface without the required control-plane decision.
-5. **Evidence mistaken for permission:** A valid journal record or signature is treated as proof that the underlying operation was authorized.
+4. **Execution bypass:** A component reaches an execution interface without the required authorization decision.
+5. **Evidence mistaken for permission:** A valid record or signature is treated as proof that the underlying operation was authorized.
 
 These are not merely implementation bugs. They are failures to establish clear architectural boundaries.
 
 ## Designing for independent decisions
-
-The solution is not to add more checks to the verifier.
-
-The solution is to make the responsibilities independent.
 
 A robust system should be able to answer these questions separately:
 
@@ -159,36 +145,36 @@ A robust system should be able to answer these questions separately:
 | Is the request structurally valid? | Validation |
 | Does the operation satisfy its specification? | Verification |
 | Who is making the request? | Identity and authentication |
-| Is the request permitted? | Authorization and policy |
-| Has the capability been admitted? | Kernel admission |
-| What is the current capability state? | Registry |
-| Can the operation be executed now? | Runtime under authorized control |
-| What happened, and what evidence was retained? | Journal |
+| Is the request permitted? | Authorization |
+| Has the component been registered? | Registration |
+| Is the component currently enabled? | Activation |
+| Can the operation be executed now? | Execution control |
+| What happened, and what evidence was retained? | Audit and records |
 
 The exact implementation may vary between systems. The separation of responsibilities should not.
 
-This also improves auditability. When an operation fails, the system can identify whether the failure was caused by invalid input, failed verification, missing authority, rejected admission, an execution constraint, or a runtime failure.
+This also improves auditability. When an operation fails, the system can identify whether the failure was caused by invalid input, failed verification, missing authority, rejected authorization, an execution constraint, or a runtime failure.
 
 Without this separation, all these conditions tend to collapse into a vague notion of a failed operation.
 
 ## A principle worth preserving
 
-As we build AXIOM, one architectural principle is becoming increasingly important:
+As autonomous systems become more capable, one principle deserves to remain explicit:
 
 **Correctness is not permission.**
 
-Verification must not become authorization. Registration must not become activation. Identity must not become trust. A successful execution must not become proof of legitimacy.
+Verification must not become authorization. Registration must not become activation. Identity must not automatically become trust. A successful execution must not become proof of legitimacy.
 
-Each decision needs an explicit owner, a defined contract, and an independently enforceable boundary.
+Each decision needs a defined responsibility and an independently enforceable boundary.
 
-This is particularly important when building systems that can act autonomously. The more capable a system becomes, the more important it is to distinguish what it *can* do from what it is *allowed* to do.
+The more capable a system becomes, the more important it is to distinguish what it *can* do from what it is *allowed* to do.
 
-A system that can verify its own actions is useful.
+A system that can verify its actions is useful.
 
-A system that also understands where its authority comes from is much safer.
+A system that also understands where its authority comes from is safer.
 
 And a system that keeps those responsibilities separate is easier to reason about, audit, and evolve.
 
 ---
 
-*AXIOM Engineering Notes — Architecture, verification, authority, and autonomous execution.*
+*Engineering Notes — Software architecture, verification, authority, and autonomous execution.*
