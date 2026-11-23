@@ -1,0 +1,97 @@
+{{ define "main" }}
+<section class="article-archive">
+  <div class="archive-heading">
+    <small>03 / KNOWLEDGE INDEX</small>
+    <h1>All Articles</h1>
+    <p class="lead">Browse engineering notes by topic, or search titles and subjects across the archive.</p>
+  </div>
+
+  <div class="archive-controls">
+    <label class="archive-search-label" for="article-search">SEARCH THE ARCHIVE</label>
+    <input id="article-search" class="archive-search" type="search" placeholder="Try verification, authentication, infrastructure..." autocomplete="off">
+    <div class="topic-heading"><span>EXPLORE BY TOPIC</span><span id="article-count" aria-live="polite"></span></div>
+    <div id="topic-filters" class="topic-filters" aria-label="Filter articles by topic">
+      <button class="topic-filter is-active" type="button" data-topic="all">All topics</button>
+    </div>
+  </div>
+
+  <div id="article-list" class="archive-list">
+    {{ range (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+      {{ $topics := union (.Params.tags | default slice) (.Params.categories | default slice) }}
+      <article class="archive-entry" data-topics="{{ delimit $topics "|" | lower }}" data-search="{{ printf "%s %s %s %s" .Title .Description (delimit (.Params.tags | default slice) " ") (delimit (.Params.categories | default slice) " ") | plainify | lower }}">
+        <div class="archive-entry-main">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 January 2006" }}</time>
+          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          {{ with .Description }}<p>{{ . }}</p>{{ end }}
+          <div class="archive-entry-topics">
+            {{ range $topics }}<button type="button" class="entry-topic" data-topic="{{ . | lower }}">{{ . }}</button>{{ end }}
+          </div>
+        </div>
+        <a class="archive-open" href="{{ .RelPermalink }}" aria-label="Read {{ .Title }}">READ ARTICLE <span>↗</span></a>
+      </article>
+    {{ end }}
+  </div>
+  <p id="no-articles" class="no-articles" hidden>No articles match that search. Try another term or select a different topic.</p>
+</section>
+
+<script>
+(() => {
+  const list = document.getElementById('article-list');
+  const search = document.getElementById('article-search');
+  const filters = document.getElementById('topic-filters');
+  const count = document.getElementById('article-count');
+  const empty = document.getElementById('no-articles');
+  if (!list || !search || !filters) return;
+
+  const entries = Array.from(list.querySelectorAll('.archive-entry'));
+  const topics = new Set();
+  entries.forEach(entry => (entry.dataset.topics || '').split('|').filter(Boolean).forEach(topic => topics.add(topic)));
+
+  Array.from(topics).sort().forEach(topic => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'topic-filter';
+    button.dataset.topic = topic;
+    button.textContent = topic;
+    filters.appendChild(button);
+  });
+
+  let activeTopic = 'all';
+  const applyFilters = () => {
+    const query = search.value.trim().toLowerCase();
+    let visible = 0;
+    entries.forEach(entry => {
+      const matchesText = !query || entry.dataset.search.includes(query);
+      const matchesTopic = activeTopic === 'all' || (entry.dataset.topics || '').split('|').includes(activeTopic);
+      const show = matchesText && matchesTopic;
+      entry.hidden = !show;
+      if (show) visible++;
+    });
+    count.textContent = visible + (visible === 1 ? ' ARTICLE' : ' ARTICLES');
+    empty.hidden = visible !== 0;
+  };
+
+  filters.addEventListener('click', event => {
+    const button = event.target.closest('button[data-topic]');
+    if (!button) return;
+    activeTopic = button.dataset.topic;
+    filters.querySelectorAll('.topic-filter').forEach(item => item.classList.toggle('is-active', item === button));
+    applyFilters();
+  });
+
+  list.addEventListener('click', event => {
+    const button = event.target.closest('.entry-topic');
+    if (!button) return;
+    const topic = button.dataset.topic;
+    const filter = Array.from(filters.querySelectorAll('.topic-filter')).find(item => item.dataset.topic === topic);
+    if (filter) filter.click();
+    search.value = '';
+    applyFilters();
+    filters.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  search.addEventListener('input', applyFilters);
+  applyFilters();
+})();
+</script>
+{{ end }}
